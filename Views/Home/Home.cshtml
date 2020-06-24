@@ -1,0 +1,44 @@
+@model List<Jubilee>
+<h4>Welcome @ViewBag.User.FirstName!</h4>
+<table class="table border border-primary">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>Number of Participants</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Jubilee j in Model)
+        {
+            <tr>
+                <td><a href="/jubilee/@j.JubileeId">@j.Title</a></td>
+                <td>@j.JubileeTime.ToShortDateString() @@ @j.JubileeTime.ToShortTimeString()</td>
+                <td>@j.Duration</td>
+                <td>@j.Coordinator.FirstName</td>
+                <td>@j.Teammates.Count</td>
+                <td>
+                    @if(ViewBag.User.UserId == j.Coordinator.UserId)
+                    {
+                        <a href="/jubilee/@j.JubileeId/delete">Delete</a>
+                    }
+                    else
+                    {
+                        if(j.Teammates.Any(o => o.UserId == ViewBag.User.UserId))
+                        {
+                            <a asp-action="ToggleParty" asp-route-jubileeId="@j.JubileeId" asp-route-status="leave">Leave</a>
+                        }
+                        else
+                        {
+                            <a asp-action="ToggleParty" asp-route-jubileeId="@j.JubileeId" asp-route-status="join">Join</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/New" class="btn btn-outline-primary">Add New Activity</a>

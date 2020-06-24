@@ -1,0 +1,33 @@
+@model Jubilee
+<div class="card">
+    <h2>Create an Activity</h2>
+    <div class="card-body">
+        <form action="/jubilee/create" method="post">
+            <div class="form-group">
+                <label>Title:</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-primary"></span>
+            </div>
+            <div class="form-group">
+                <label>Event Date & Time:</label>
+                <input asp-for="JubileeTime" class="form-control" />
+                <span asp-validation-for="JubileeTime" class="text-primary"></span>
+            </div>
+            <div class="form-group">
+                <label>Duration:</label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-primary"></span>
+                <select class="mdb-select md-form colorful-select dropdown-primary">
+                    <option value="1">Days</option>
+                    <option value="2">Hours</option>
+                    <option value="3">Minutes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+            <input type="submit" value="Create Activity" class="btn btn-outline-primary">
+        </form>
+    </div>
+</div>

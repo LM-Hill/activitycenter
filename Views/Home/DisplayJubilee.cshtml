@@ -1,0 +1,33 @@
+@model Jubilee
+<div>
+    @if(ViewBag.User.UserId == Model.Coordinator.UserId)
+        {
+            <a class="btn btn-warning btn-sm" href="/jubilee/@Model.JubileeId/delete">Delete</a>
+        }
+        else
+        {
+            if(Model.Teammates.Any(o => o.UserId == ViewBag.User.UserId))
+            {
+                <a class="btn btn-outline-dark btn-sm" asp-action="ToggleParty" asp-route-jubileeId="@Model.JubileeId" asp-route-status="leave">Leave</a>
+            }
+            else
+            {
+                <a class="btn btn-outline-success btn-sm" asp-action="ToggleParty" asp-route-jubileeId="@Model.JubileeId" asp-route-status="join">Join</a>
+            }
+        }
+    <h2>@Model.Title</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4>Event Coordinator: @Model.Coordinator.FirstName</h4>
+            <h5>Description:</h5>
+            <p>@Model.Description</p>
+            <ul class="list-group">
+                <li class="list-group-item">Participants</li>
+                @foreach( var j in Model.Teammates)
+                {
+                    <li class="list-group-item">@j.Participant.FirstName</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
